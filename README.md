@@ -1,46 +1,52 @@
-# 🎁 Aarav Gift Gallery
+# Veloura Bakery 🍰
 
-A modern, mobile-first e-commerce web application designed for a local gift and toy shop — **Aarav Gift Gallery**.
+Premium bakery ecommerce website built with Next.js 16, MongoDB and Tailwind CSS.
 
-## 🚀 Features
+## ✨ Features
 
-* 🛍️ Product listing with clean UI
-* 🔍 Category-based browsing
-* ➕ Quantity selector & cart system
-* 📄 Order summary page
-* 🧾 Billing calculation
-* 📱 Fully responsive (mobile-first design)
+* Beautiful modern bakery UI
+* Fully responsive mobile-first design
+* Product categories
+* Featured products section
+* Product detail pages
+* Add to cart functionality
+* Quantity selector
+* WhatsApp order flow
+* Checkout system
+* Custom cake request system
+* Sticky category pills
+* Floating cart
+* Admin-ready product structure
+* MongoDB integration
+* Cloudinary image support
 
-## 🎨 Design System
+---
 
-* Primary Color: Sea Green (#2E8B8B)
-* Secondary: White (#FFFFFF)
-* Accent: Soft Pastels (Peach / Light Yellow)
+## 🛠 Tech Stack
 
-## 🛠️ Tech Stack
-
-* Next.js
-* React.js
+* Next.js 16
+* React
 * Tailwind CSS
-* JavaScript
+* MongoDB
+* Mongoose
+* Zustand
+* Framer Motion
+* Cloudinary
 
-## 📦 Installation
+---
 
-```bash
-git clone https://github.com/YOUR_USERNAME/aarav-gift-gallery.git
-cd aarav-gift-gallery
-npm install
-npm run dev
-```
+## 📱 Mobile Optimized
 
-## 🌐 Live Preview
+Designed especially for smooth mobile ordering experience.
 
-Coming soon...
+---
 
-## 💡 Purpose
+## 🚀 Live Demo
 
-This project was built to transform a food delivery UI into a premium gift shop experience, focusing on **clean design, usability, and real-world business application**.
+Add your Vercel live URL here.
+
+---
 
 ## 👨‍💻 Developer
 
-Aman (Frontend Developer in Progress 🚀)
+Built by Aman Digital Solution ✨
