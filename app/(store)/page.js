@@ -1,177 +1,148 @@
 import Hero from "@/components/store/Hero";
 import CategorySlider from "@/components/store/CategorySlider";
+
 import Navbar from "@/components/layout/Navbar";
-
-import CustomOrderSection from "@/components/store/CustomOrderSection";
-import TrustSection from "@/components/store/TrustSection";
-
 import Footer from "@/components/layout/Footer";
 
 import FeaturedProducts from "@/components/store/FeaturedProducts";
-
+import CustomOrderSection from "@/components/store/CustomOrderSection";
+import TrustSection from "@/components/store/TrustSection";
 import FloatingCart from "@/components/store/FloatingCart";
+import BakeryShowcase from "@/components/store/BakeryShowcase";
 
-export default function HomePage() {
+import { getCategories } from "@/actions/categoryActions";
+import { connectDB } from "@/lib/db";
 
-return(
+import Product from "@/models/Product";
 
-<div className="min-h-screen bg-[#fffaf5] overflow-x-hidden">
+export default async function HomePage() {
 
+  await connectDB();
 
-{/* NAVBAR */}
+  const rawCategories =
+    await getCategories();
 
-<Navbar/>
+  /*
+  ========================================
+  REAL PRODUCT COUNTS
+  ========================================
+  */
 
+  const categoriesData =
+    await Promise.all(
 
-{/* HERO */}
+      rawCategories.map(
+        async (category) => {
 
-<section className="relative">
+          const count =
+            await Product.countDocuments({
+              category: category._id,
+              isVisible: true,
+            });
 
-<Hero/>
+          return {
+            _id:
+              category._id.toString(),
 
-</section>
+            name:
+              category.name,
 
+            slug:
+              category.slug,
 
-{/* CATEGORY STRIP */}
+            image:
+              category.image,
 
-<section className="relative z-10 -mt-2 md:-mt-4">
+            productCount:
+              count,
+          };
 
-<div className="max-w-7xl mx-auto px-4">
+        }
+      )
 
-<div className="rounded-[32px] bg-white border border-orange-100 shadow-[0_10px_40px_rgba(0,0,0,0.05)] overflow-hidden">
+    );
 
-<CategorySlider/>
+  const categories =
+    JSON.parse(
+      JSON.stringify(categoriesData)
+    );
 
-</div>
+  return (
 
-</div>
+    <div className="min-h-screen overflow-x-hidden bg-[#FFF8F2]">
 
-</section>
+      {/* NAVBAR */}
+      <Navbar />
 
+      {/* 🔥 MAIN CONTENT WRAPPER */}
+      <main className="pt-[74px]">
 
-{/* FEATURED PRODUCTS */}
+        {/* HERO */}
+        <Hero />
 
-<section className="py-10 md:py-14">
+        {/* CATEGORIES */}
+        <section className="relative z-20 -mt-8 md:-mt-12">
 
-<div className="max-w-7xl mx-auto px-4 space-y-8">
+          <div className="max-w-7xl mx-auto px-4">
 
+            <div className="overflow-hidden rounded-[38px] border border-[#FFE4D0] bg-white/95 shadow-[0_20px_60px_rgba(0,0,0,0.08)] backdrop-blur-xl">
 
-{/* SECTION HEADING */}
+              <CategorySlider
+                categories={categories}
+              />
 
-<div className="flex items-end justify-between gap-4">
+            </div>
 
-<div className="space-y-2">
+          </div>
 
-<p className="text-xs md:text-sm font-semibold tracking-[0.3em] text-[#0f766e] uppercase">
+        </section>
 
-Trending Collection
+        {/* BAKERY SHOWCASE */}
+        <BakeryShowcase />
 
-</p>
+        {/* FEATURED PRODUCTS */}
+        <section className="pt-10 md:pt-14">
 
-<h2 className="text-3xl md:text-5xl font-bold tracking-tight text-slate-900 leading-tight">
+          <FeaturedProducts />
 
-Popular Gifts <br className="hidden sm:block"/>
+        </section>
 
-& Shopping Picks
+        {/* CUSTOM CAKE SECTION */}
+        <section className="py-10 md:py-14">
 
-</h2>
+          <div className="max-w-7xl mx-auto px-4">
 
-<p className="max-w-xl text-sm md:text-base text-slate-500 leading-relaxed">
+            <div className="overflow-hidden rounded-[40px] bg-gradient-to-br from-[#FF8A3D] via-[#ff944d] to-[#ff7b22] shadow-[0_25px_70px_rgba(255,138,61,0.25)]">
 
-Discover curated gifts, toys, lifestyle accessories and premium shopping products for every special moment.
+              <CustomOrderSection />
 
-</p>
+            </div>
 
-</div>
+          </div>
 
+        </section>
 
-{/* MINI BADGE */}
+        {/* TRUST SECTION */}
+        <section className="pb-14">
 
-<div className="hidden md:flex items-center gap-2 rounded-full bg-orange-100 px-5 py-2 text-sm font-semibold text-orange-600">
+          <div className="max-w-7xl mx-auto px-4">
 
-🔥 Fast Moving Products
+            <TrustSection />
 
-</div>
+          </div>
 
-</div>
+        </section>
 
+        {/* FOOTER */}
+        <Footer />
 
-{/* PRODUCTS */}
+      </main>
 
-<div className="relative">
+      {/* FLOATING CART */}
+      <FloatingCart />
 
-<FeaturedProducts/>
+    </div>
 
-</div>
-
-</div>
-
-</section>
-
-
-{/* OFFER / CUSTOM SECTION */}
-
-<section className="py-4 md:py-8">
-
-<div className="max-w-7xl mx-auto px-4">
-
-<div className="rounded-[36px] overflow-hidden bg-gradient-to-br from-orange-500 via-orange-500 to-orange-600 shadow-[0_20px_60px_rgba(255,107,0,0.22)]">
-
-<CustomOrderSection/>
-
-</div>
-
-</div>
-
-</section>
-
-
-{/* TRUST SECTION */}
-
-<section className="py-10 md:py-14">
-
-<div className="max-w-7xl mx-auto px-4">
-
-<div className="space-y-3 mb-8 text-center">
-
-<p className="text-xs md:text-sm font-semibold tracking-[0.3em] uppercase text-[#0f766e]">
-
-Why Shop With Us
-
-</p>
-
-<h2 className="text-3xl md:text-5xl font-bold text-slate-900 tracking-tight">
-
-Trusted Local Shopping Experience
-
-</h2>
-
-<p className="max-w-2xl mx-auto text-sm md:text-base text-slate-500 leading-relaxed">
-
-From thoughtful gifts to lifestyle products, we bring premium shopping experience with fast support and trusted quality.
-
-</p>
-
-</div>
-
-<TrustSection/>
-
-</div>
-
-</section>
-
-
-{/* FOOTER */}
-
-<Footer/>
-
-
-{/* FLOATING CART */}
-
-<FloatingCart/>
-
-</div>
-
-);
+  );
 
 }

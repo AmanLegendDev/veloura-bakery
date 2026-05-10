@@ -55,20 +55,32 @@ const handleClick = (id) => {
     `/category/${id}`
   );
 
-  requestAnimationFrame(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
+requestAnimationFrame(() => {
+
+  const productsSection =
+    document.getElementById("products");
+
+  if (!productsSection) return;
+
+  const navbarOffset = 160;
+
+  const top =
+    productsSection.getBoundingClientRect().top +
+    window.scrollY -
+    navbarOffset;
+
+  window.scrollTo({
+    top,
+    behavior: "smooth"
   });
 
+});
 };
 
 
   return(
 
-    <div className="px-4 py-3 sticky top-[68px] z-40 bg-[#fffaf5]/95 backdrop-blur-md border-b border-gray-100">
-
+<div className="sticky top-[74px] z-[60] border-b border-[#F5DED0] bg-[#FFF8F2]/95 px-4 py-3 backdrop-blur-xl">
       <div
   ref={scrollRef}
   className="flex gap-3 overflow-x-auto no-scrollbar"

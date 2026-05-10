@@ -2,6 +2,12 @@ import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema(
   {
+    /*
+    =====================================
+    BASIC INFO
+    =====================================
+    */
+
     name: {
       type: String,
       required: true,
@@ -21,21 +27,55 @@ const productSchema = new mongoose.Schema(
       default: "",
     },
 
+
+    /*
+    =====================================
+    PRICING
+    =====================================
+    */
+
     sellingPrice: {
       type: Number,
       required: true,
     },
+
+
+    /*
+    =====================================
+    IMAGES
+    =====================================
+    */
 
     image: {
       type: String,
       required: true,
     },
 
+    gallery: [
+      {
+        type: String,
+      },
+    ],
+
+
+    /*
+    =====================================
+    CATEGORY
+    =====================================
+    */
+
     category: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Category",
       required: true,
     },
+
+
+    /*
+    =====================================
+    VISIBILITY
+    =====================================
+    */
 
     isVisible: {
       type: Boolean,
@@ -47,8 +87,11 @@ const productSchema = new mongoose.Schema(
       default: false,
     },
 
+
     /*
-    NEW OPTIONAL COMMERCE FIELDS
+    =====================================
+    COMMERCE
+    =====================================
     */
 
     badgeText: {
@@ -63,7 +106,11 @@ const productSchema = new mongoose.Schema(
 
     stockStatus: {
       type: String,
-      enum: ["in_stock", "low_stock", "out_of_stock"],
+      enum: [
+        "in_stock",
+        "low_stock",
+        "out_of_stock",
+      ],
       default: "in_stock",
     },
 
@@ -71,6 +118,13 @@ const productSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+
+
+    /*
+    =====================================
+    CAKE OPTIONS
+    =====================================
+    */
 
     sizes: [
       {
@@ -84,13 +138,39 @@ const productSchema = new mongoose.Schema(
       },
     ],
 
+    cakeMessage: {
+      type: Boolean,
+      default: true,
+    },
+
+    cakeType: {
+  type: String,
+  enum: ["egg", "eggless"],
+  default: "eggless",
+},
+
+preparationTime: {
+  type: String,
+  default: "",
+},
+
+
+    /*
+    =====================================
+    HIGHLIGHTS
+    =====================================
+    */
+
     shortHighlights: [
       {
         type: String,
       },
     ],
+
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
 export default mongoose.models.Product ||

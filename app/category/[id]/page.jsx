@@ -30,8 +30,9 @@ export async function generateMetadata({
   }
 
   const category =
-    await Category.findById(categoryId)
-      .lean();
+  await Category.findOne({
+    slug: categoryId
+  }).lean();
 
   if (!category) {
 

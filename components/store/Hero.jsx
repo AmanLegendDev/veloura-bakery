@@ -6,512 +6,229 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 import {
-Search,
-ArrowRight,
-Sparkles,
 Star,
-ShieldCheck,
-Truck,
-Gift,
-ChevronRight
+ArrowRight,
+Sparkles
 } from "lucide-react";
 
 export default function Hero() {
 
-const quickCategories = [
-{
-name:"Gifts",
-image:"/hero/cat-gifts.jpg",
-bg:"bg-orange-100"
-},
-{
-name:"Toys",
-image:"/hero/cat-toys.jpg",
-bg:"bg-pink-100"
-},
-{
-name:"Decor",
-image:"/hero/cat-decor.jpg",
-bg:"bg-amber-100"
-},
-{
-name:"Shawls",
-image:"/hero/cat-shawls.jpg",
-bg:"bg-cyan-100"
-},
-];
-
 return(
 
-<section className="relative overflow-hidden bg-[#fffaf5]">
+<section className="relative min-h-[72vh] lg:min-h-[82vh] overflow-hidden bg-[#FDF6F0]">
 
 
-{/* BG TEXTURE */}
+{/* BACKGROUND PATTERN */}
 
-<div className="absolute inset-0 opacity-[0.04]">
+<div className="absolute inset-0 opacity-[0.03]">
 
-<Image
-src="/hero/bg-texture.jpg"
-alt="background"
-fill
-priority
-className="object-cover"
+<div
+className="absolute inset-0"
+style={{
+backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+}}
 />
 
 </div>
 
 
-{/* GLOW */}
+{/* BLOBS */}
 
-<div className="absolute -top-24 -left-20 w-[240px] h-[240px] rounded-full bg-orange-200 blur-3xl opacity-40"/>
+<div className="absolute top-[-100px] right-[-100px] w-[300px] h-[300px] rounded-full bg-[#FF8A3D]/10 blur-3xl"/>
 
-<div className="absolute top-1/3 right-0 w-[220px] h-[220px] rounded-full bg-orange-100 blur-3xl opacity-50"/>
+<div className="absolute bottom-[-120px] left-[-120px] w-[380px] h-[380px] rounded-full bg-[#8B4513]/10 blur-3xl"/>
 
 
-<div className="relative z-10 max-w-7xl mx-auto px-4 pt-4 pb-7 md:pt-6">
+<div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+
+{/* HERO CONTENT */}
+
+<div className="grid items-center gap-10 pt-8 pb-14 lg:grid-cols-2 lg:gap-14 lg:pt-12">
+
+
+{/* LEFT SIDE */}
+
+<motion.div
+initial={{opacity:0,x:-30}}
+animate={{opacity:1,x:0}}
+transition={{duration:0.6}}
+className="order-2 lg:order-1"
+>
 
 
 {/* TOP BADGE */}
 
-<motion.div
-initial={{opacity:0,y:8}}
-animate={{opacity:1,y:0}}
-className="flex justify-center"
->
-
-<div className="inline-flex items-center gap-2 rounded-full border border-orange-200 bg-white px-4 py-2 shadow-sm">
-
-<div className="w-5 h-5 rounded-full bg-orange-100 flex items-center justify-center">
+<div className="inline-flex items-center gap-2 rounded-full border border-[#FFE4D0] bg-white px-4 py-2 shadow-sm">
 
 <Sparkles
-size={11}
-className="text-orange-500"
+size={14}
+className="text-[#FF8A3D]"
 />
 
-</div>
+<p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#8B4513]">
 
-<p className="text-[11px] font-semibold text-slate-700">
-
-Shimla’s Trusted Gift Marketplace
+Shimla’s Finest Bakery
 
 </p>
 
 </div>
 
-</motion.div>
 
+{/* HEADING */}
 
-{/* HERO TEXT */}
+<h1 className="mt-6 text-[38px] sm:text-[56px] lg:text-[82px] leading-[0.95] font-black tracking-[-0.05em] text-[#3D2314] sm:text-[62px] lg:text-[82px]">
 
-<div className="mt-5 text-center">
+Freshly Baked
 
-<motion.h1
-initial={{opacity:0,y:10}}
-animate={{opacity:1,y:0}}
-transition={{delay:0.1}}
-className="text-[34px] leading-[0.92] tracking-[-0.06em] font-black text-slate-900 sm:text-[48px] md:text-[70px]"
->
+<span className="block bg-gradient-to-r from-[#FF8A3D] via-[#E67329] to-[#8B4513] bg-clip-text text-transparent">
 
-Shop Trending
-
-<span className="block text-orange-500">
-
-Gifts & Surprises
+With Love ❤️
 
 </span>
 
-For Every Moment ✨
+</h1>
 
-</motion.h1>
 
-<motion.p
-initial={{opacity:0}}
-animate={{opacity:1}}
-transition={{delay:0.15}}
-className="mx-auto mt-3 max-w-[640px] text-[13px] sm:text-[15px] md:text-lg leading-relaxed text-slate-600"
+{/* DESCRIPTION */}
+
+<p className="mt-5 max-w-[520px] text-[15px] leading-relaxed text-[#6B4423] md:text-[17px]">
+
+Fresh cream cakes, brownies & handcrafted desserts baked daily for birthdays, celebrations and sweet memories.
+
+</p>
+
+
+{/* CTA */}
+
+<div className="mt-7">
+
+<Link
+href="/category/all"
+className="inline-flex items-center justify-center gap-2 rounded-full bg-[#FF8A3D] px-8 py-4 text-sm font-semibold text-white shadow-[0_15px_40px_rgba(255,138,61,0.35)] transition-all duration-300 hover:scale-[1.02] hover:bg-[#f57c2e]"
 >
 
-Discover premium gifts, toys, shawls, accessories and lifestyle products curated for birthdays, celebrations and everyday happiness.
+Explore Menu
 
-</motion.p>
+<ArrowRight size={17}/>
 
-</div>
-
-
-{/* SEARCH */}
-
-<motion.div
-initial={{opacity:0,y:10}}
-animate={{opacity:1,y:0}}
-transition={{delay:0.2}}
-className="mt-5"
->
-
-<div className="mx-auto flex h-14 max-w-2xl items-center gap-3 rounded-2xl border border-orange-200 bg-white px-4 shadow-[0_12px_35px_rgba(0,0,0,0.06)]">
-
-<Search
-size={20}
-className="text-slate-400 shrink-0"
-/>
-
-<input
-type="text"
-placeholder="Search gifts, toys, decor, accessories..."
-className="w-full bg-transparent text-[14px] text-slate-700 outline-none placeholder:text-slate-400"
-/>
-
-<button className="hidden sm:flex h-10 items-center justify-center rounded-xl bg-orange-500 px-5 text-sm font-semibold text-white">
-
-Search
-
-</button>
+</Link>
 
 </div>
 
 </motion.div>
 
 
-{/* QUICK CATEGORIES */}
+{/* RIGHT SIDE */}
 
 <motion.div
-initial={{opacity:0}}
-animate={{opacity:1}}
-transition={{delay:0.25}}
-className="mt-5 overflow-x-auto scrollbar-hide"
+initial={{opacity:0,x:30}}
+animate={{opacity:1,x:0}}
+transition={{duration:0.6,delay:0.2}}
+className="order-1 lg:order-2 relative"
 >
 
-<div className="flex min-w-max gap-3 px-1">
 
-{quickCategories.map((item,index)=>(
+{/* MAIN IMAGE */}
 
-<Link
-key={index}
-href="/category/all"
-className="group"
->
+<div className="relative">
 
-<div className="flex w-[86px] flex-col items-center">
 
-<div className={`relative w-[74px] h-[74px] rounded-[24px] overflow-hidden border border-white shadow-md ${item.bg}`}>
+{/* SOFT BACKGROUND */}
+
+<div className="absolute inset-0 scale-[0.88] rounded-full bg-gradient-to-br from-[#FFE4D0] to-[#FFF0E6] blur-md"/>
+
+
+<div className="relative aspect-[4/4.6] overflow-hidden rounded-[46px] border-4 border-white shadow-[0_25px_80px_rgba(255,138,61,0.18)]">
 
 <Image
-src={item.image}
-alt={item.name}
+src="/hero/cake-main.jpg"
+alt="Premium Cake"
 fill
-className="object-cover group-hover:scale-110 transition-all duration-300"
+priority
+className="object-cover scale-[1.04] max-w-[420px] mx-auto"
 />
 
-</div>
 
-<p className="mt-2 text-[12px] font-semibold text-slate-700">
+{/* OVERLAY */}
 
-{item.name}
-
-</p>
+<div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent"/>
 
 </div>
 
-</Link>
+
+{/* RATING CARD */}
+
+<motion.div
+initial={{opacity:0,scale:0.8}}
+animate={{opacity:1,scale:1}}
+transition={{duration:0.5,delay:0.5}}
+className="absolute left-0 top-10 rounded-[28px] border border-[#FFE4D0] bg-white p-4 shadow-2xl"
+>
+
+<div className="mb-2 flex items-center gap-1">
+
+{[...Array(5)].map((_,i)=>(
+
+<Star
+key={i}
+size={14}
+className="fill-[#FFB800] text-[#FFB800]"
+/>
 
 ))}
 
 </div>
 
-</motion.div>
+<p className="text-lg font-black text-[#3D2314]">
 
-
-{/* MAIN BANNERS */}
-
-<motion.div
-initial={{opacity:0,y:10}}
-animate={{opacity:1,y:0}}
-transition={{delay:0.3}}
-className="mt-5 grid grid-cols-1 gap-4 lg:grid-cols-[1.4fr_0.8fr]"
->
-
-
-{/* BIG BANNER */}
-
-<div className="relative overflow-hidden rounded-[32px] border border-orange-100 bg-white shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
-
-
-<div className="relative aspect-[4/4.2] sm:aspect-[16/9]">
-
-<Image
-src="/hero/main-banner.jpg"
-alt="banner"
-fill
-priority
-className="object-cover"
-/>
-
-<div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent"/>
-
-</div>
-
-
-<div className="absolute inset-0 flex flex-col justify-between p-5 md:p-7">
-
-
-{/* OFFER */}
-
-<div className="flex items-start justify-between gap-3">
-
-<div className="rounded-full bg-white/90 px-3 py-1 text-[10px] font-bold uppercase tracking-wide text-orange-500 backdrop-blur">
-
-🔥 Trending Collection
-
-</div>
-
-<div className="rounded-full bg-black/40 px-3 py-1 text-[10px] font-semibold text-white backdrop-blur">
-
-LIMITED OFFER
-
-</div>
-
-</div>
-
-
-{/* CONTENT */}
-
-<div className="max-w-[260px] md:max-w-[420px]">
-
-<h2 className="text-[28px] leading-[0.95] font-black tracking-[-0.05em] text-white md:text-[54px]">
-
-Premium Gifts
-
-<span className="block text-orange-300">
-
-Starting ₹299
-
-</span>
-
-</h2>
-
-<p className="mt-3 text-[12px] leading-relaxed text-white/90 md:text-sm">
-
-Explore toys, hampers, decor and trending lifestyle gifts for every celebration.
+4.9 Rating
 
 </p>
 
+<p className="text-xs text-[#8B6914]">
 
-<Link
-href="/category/all"
-className="mt-4 inline-flex items-center gap-2 rounded-2xl bg-orange-500 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-orange-500/30 transition-all hover:bg-orange-600"
+2000+ Happy Customers
+
+</p>
+
+</motion.div>
+
+
+{/* BESTSELLER CARD */}
+
+<motion.div
+initial={{opacity:0,scale:0.8}}
+animate={{opacity:1,scale:1}}
+transition={{duration:0.5,delay:0.7}}
+className="absolute bottom-14 right-0 rounded-[28px] bg-gradient-to-br from-[#FF8A3D] to-[#E67329] p-5 text-white shadow-[0_20px_60px_rgba(255,138,61,0.35)]"
 >
 
-Shop Collection
+<p className="text-[10px] uppercase tracking-[0.18em] text-orange-100">
 
-<ArrowRight size={16}/>
+Best Seller
 
-</Link>
+</p>
 
-</div>
+<h3 className="mt-2 text-lg font-bold">
 
-</div>
-
-</div>
-
-
-{/* SIDE PROMOS */}
-
-<div className="grid gap-4">
-
-
-{/* CARD 1 */}
-
-<div className="relative overflow-hidden rounded-[28px] border border-orange-100 bg-[#101828] p-4 shadow-[0_16px_40px_rgba(0,0,0,0.08)]">
-
-<div className="absolute right-0 top-0 h-full w-[45%]">
-
-<Image
-src="/hero/banner-2.jpg"
-alt="promo"
-fill
-className="object-cover opacity-90"
-/>
-
-</div>
-
-<div className="relative z-10 max-w-[55%]">
-
-<div className="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-[10px] font-semibold text-white backdrop-blur">
-
-🎁 Best Sellers
-
-</div>
-
-<h3 className="mt-3 text-[24px] leading-[1] font-black tracking-[-0.04em] text-white">
-
-Up To
-
-<span className="block text-orange-400">
-
-40% OFF
-
-</span>
+Chocolate Truffle
 
 </h3>
 
-<p className="mt-2 text-[11px] leading-relaxed text-white/70">
+<p className="mt-1 text-3xl font-black">
 
-Cute toys and gift hampers now available.
-
-</p>
-
-</div>
-
-</div>
-
-
-{/* CARD 2 */}
-
-<div className="relative overflow-hidden rounded-[28px] border border-orange-100 bg-orange-500 p-4 shadow-[0_16px_40px_rgba(255,115,0,0.20)]">
-
-
-<div className="absolute right-0 bottom-0 h-full w-[48%]">
-
-<Image
-src="/hero/banner-3.jpg"
-alt="promo"
-fill
-className="object-cover opacity-95"
-/>
-
-</div>
-
-
-<div className="relative z-10 max-w-[55%]">
-
-<div className="inline-flex items-center gap-1 rounded-full bg-white/20 px-3 py-1 text-[10px] font-semibold text-white backdrop-blur">
-
-✨ New Arrival
-
-</div>
-
-<h3 className="mt-3 text-[24px] leading-[1] font-black tracking-[-0.04em] text-white">
-
-Luxury Decor
-
-<span className="block text-orange-100">
-
-Collection
-
-</span>
-
-</h3>
-
-<p className="mt-2 text-[11px] leading-relaxed text-white/80">
-
-Elegant accessories and premium decor gifts.
+₹649
 
 </p>
 
-</div>
-
-</div>
+</motion.div>
 
 </div>
 
 </motion.div>
 
-
-{/* BOTTOM STRIP */}
-
-<motion.div
-initial={{opacity:0}}
-animate={{opacity:1}}
-transition={{delay:0.35}}
-className="mt-5 flex flex-wrap items-center justify-center gap-2"
->
-
-<div className="flex items-center gap-2 rounded-full border border-orange-100 bg-white px-4 py-2 shadow-sm">
-
-<ShieldCheck
-size={14}
-className="text-green-600"
-/>
-
-<p className="text-[11px] font-semibold text-slate-700">
-
-Trusted Products
-
-</p>
-
 </div>
-
-<div className="flex items-center gap-2 rounded-full border border-orange-100 bg-white px-4 py-2 shadow-sm">
-
-<Truck
-size={14}
-className="text-orange-500"
-/>
-
-<p className="text-[11px] font-semibold text-slate-700">
-
-Fast Support
-
-</p>
-
-</div>
-
-<div className="flex items-center gap-2 rounded-full border border-orange-100 bg-white px-4 py-2 shadow-sm">
-
-<Gift
-size={14}
-className="text-pink-500"
-/>
-
-<p className="text-[11px] font-semibold text-slate-700">
-
-500+ Gift Items
-
-</p>
-
-</div>
-
-<div className="flex items-center gap-2 rounded-full border border-orange-100 bg-white px-4 py-2 shadow-sm">
-
-<Star
-size={14}
-className="text-yellow-500"
-/>
-
-<p className="text-[11px] font-semibold text-slate-700">
-
-4.9 Customer Rating
-
-</p>
-
-</div>
-
-</motion.div>
-
-
-{/* MINI CTA */}
-
-<motion.div
-initial={{opacity:0}}
-animate={{opacity:1}}
-transition={{delay:0.4}}
-className="mt-5 flex justify-center"
->
-
-<Link
-href="/category/all"
-className="group inline-flex items-center gap-2 text-sm font-bold text-orange-500"
->
-
-Browse Full Marketplace
-
-<ChevronRight
-size={16}
-className="transition-all group-hover:translate-x-1"
-/>
-
-</Link>
-
-</motion.div>
 
 </div>
 

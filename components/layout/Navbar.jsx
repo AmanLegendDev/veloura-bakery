@@ -4,469 +4,574 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
-Menu,
-X,
-ShoppingCart,
-ClipboardList,
-Search,
-Gift,
-Sparkles,
-ChevronRight
+  Menu,
+  X,
+  ShoppingCart,
+  ClipboardList,
+  Search,
+  Gift,
+  Sparkles,
+  ChevronRight,
 } from "lucide-react";
 
 import SearchOverlay from "@/components/store/SearchOverlay";
 
 import {
-motion,
-AnimatePresence
+  motion,
+  AnimatePresence,
 } from "framer-motion";
 
 import { useCartStore } from "@/store/cartStore";
 
 export default function Navbar() {
 
-const pathname = usePathname();
+  const pathname = usePathname();
 
-const showSearch =
-pathname === "/" ||
-pathname.startsWith("/category");
+  const showSearch =
+    pathname === "/" ||
+    pathname.startsWith("/category") ||
+    pathname.startsWith("/products");
 
-const [open,setOpen]=useState(false);
+  const [open, setOpen] = useState(false);
 
-const [searchOpen,setSearchOpen]=useState(false);
+  const [searchOpen, setSearchOpen] =
+    useState(false);
 
-const cart = useCartStore((state)=>state.cart);
+  const [scrolled, setScrolled] =
+    useState(false);
 
-const totalItems = cart.reduce(
-(acc,item)=>acc+item.qty,
-0
-);
+  const cart = useCartStore(
+    (state) => state.cart
+  );
 
-return(
+  const totalItems = cart.reduce(
+    (acc, item) => acc + item.qty,
+    0
+  );
 
-<>
+  /*
+  =======================================
+  SCROLL EFFECT
+  =======================================
+  */
 
-<nav className="sticky top-0 z-50 border-b border-orange-100 bg-[#fffaf5]/95 backdrop-blur-xl">
+  useEffect(() => {
 
-<div className="max-w-7xl mx-auto px-4">
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
 
-<div className="h-[74px] flex items-center justify-between gap-3">
+    window.addEventListener(
+      "scroll",
+      handleScroll
+    );
 
+    return () =>
+      window.removeEventListener(
+        "scroll",
+        handleScroll
+      );
 
-{/* LEFT */}
+  }, []);
 
-<div className="flex items-center gap-3 min-w-0">
+  /*
+  =======================================
+  BODY LOCK
+  =======================================
+  */
 
-<Link
-href="/"
-className="flex items-center gap-3 min-w-0"
->
+  useEffect(() => {
 
-{/* LOGO */}
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
 
-<div className="relative w-12 h-12 shrink-0 rounded-2xl overflow-hidden bg-white border border-orange-100 shadow-[0_8px_20px_rgba(0,0,0,0.06)]">
+    return () => {
+      document.body.style.overflow = "";
+    };
 
-<Image
-src="/logo.jpg"
-width={100}
-height={100}
-alt="Batish Gifts"
-className="object-contain w-full h-full p-1.5"
-/>
+  }, [open]);
 
-</div>
+  return (
 
+    <>
 
-{/* BRAND */}
+      {/* NAVBAR */}
 
-<div className="min-w-0 hidden xs:block">
+      <nav
+        className={`
 
-<h2 className="text-sm font-bold tracking-wide text-slate-900 truncate">
+        fixed top-0 left-0 right-0 z-[100]
 
-VELOURA BAKERY
+        transition-all duration-300
 
-</h2>
+        ${
+          scrolled
+            ? `
+              border-b border-[#F6DFD0]
+              bg-[#FFF8F2]/78
+              backdrop-blur-2xl
+              shadow-[0_10px_40px_rgba(0,0,0,0.06)]
+            `
+            : `
+              bg-[#FFF8F2]/92
+            `
+        }
 
-<p className="text-[11px] text-slate-500 truncate">
+      `}
+      >
 
-Gifts • Toys • Lifestyle
+        <div className="max-w-7xl mx-auto px-4">
 
-</p>
+          <div className="flex h-[74px] items-center justify-between gap-3">
 
-</div>
+            {/* LEFT */}
 
-</Link>
+            <div className="flex min-w-0 items-center gap-3">
 
-</div>
+              <Link
+                href="/"
+                className="flex min-w-0 items-center gap-3"
+              >
 
+                {/* LOGO */}
 
-{/* DESKTOP NAV */}
+                <motion.div
+                  whileHover={{ scale: 1.03 }}
+                  className="relative h-12 w-12 shrink-0 overflow-hidden rounded-[18px] border border-[#F6DFD0] bg-white shadow-[0_10px_25px_rgba(0,0,0,0.06)]"
+                >
 
-<div className="hidden lg:flex items-center gap-2">
+                  <Image
+                    src="/logo.jpg"
+                    width={100}
+                    height={100}
+                    alt="Veloura Bakery"
+                    className="h-full w-full object-contain p-1.5"
+                  />
 
-<Link
-href="/category/all"
-className="px-4 h-10 rounded-2xl flex items-center gap-2 text-sm font-medium text-slate-700 hover:bg-orange-50 transition-all"
->
+                </motion.div>
 
-<ClipboardList size={16}/>
+                {/* BRAND */}
 
-Shop
+                <div className="hidden min-w-0 xs:block">
 
-</Link>
+                  <h2 className="truncate text-sm font-black tracking-wide text-[#2B170B]">
 
-<Link
-href="/custom-order"
-className="px-4 h-10 rounded-2xl flex items-center gap-2 text-sm font-medium text-slate-700 hover:bg-orange-50 transition-all"
->
+                    VELOURA BAKERY
 
-<Gift size={16}/>
+                  </h2>
 
-Custom Gifts
+                  <p className="truncate text-[11px] text-[#8B5E3C]">
 
-</Link>
+                    Freshly Baked Happiness 🎂
 
-</div>
+                  </p>
 
+                </div>
 
-{/* RIGHT */}
+              </Link>
 
-<div className="flex items-center gap-2 shrink-0">
+            </div>
 
+            {/* DESKTOP NAV */}
 
-{/* SEARCH */}
+            <div className="hidden items-center gap-2 lg:flex">
 
-{showSearch &&(
+              <Link
+                href="/category/all"
+                className="flex h-11 items-center gap-2 rounded-2xl px-5 text-sm font-semibold text-[#5B3722] transition-all hover:bg-[#FFF1E7]"
+              >
 
-<button
-onClick={()=>setSearchOpen(true)}
-className="w-11 h-11 rounded-2xl bg-white border border-orange-100 flex items-center justify-center text-slate-700 hover:bg-orange-50 transition-all shadow-sm"
->
+                <ClipboardList size={17} />
 
-<Search size={19}/>
+                Our Menu
 
-</button>
+              </Link>
 
-)}
+              <Link
+                href="/custom-order"
+                className="flex h-11 items-center gap-2 rounded-2xl px-5 text-sm font-semibold text-[#5B3722] transition-all hover:bg-[#FFF1E7]"
+              >
 
+                <Gift size={17} />
 
-{/* CART */}
+                Custom Cakes
 
-<Link
-href="/cart"
-className="relative"
->
+              </Link>
 
-<motion.div
-whileTap={{scale:0.92}}
-className="w-11 h-11 rounded-2xl bg-white border border-orange-100 flex items-center justify-center text-slate-700 hover:bg-orange-50 transition-all shadow-sm"
->
+            </div>
 
-<ShoppingCart size={19}/>
+            {/* RIGHT */}
 
-</motion.div>
+            <div className="flex shrink-0 items-center gap-2">
 
-{totalItems > 0 &&(
+              {/* SEARCH */}
 
-<div className="absolute -top-1 -right-1 min-w-[20px] h-5 rounded-full bg-orange-500 text-white text-[10px] font-bold flex items-center justify-center px-1.5 shadow-lg shadow-orange-200">
+              {showSearch && (
 
-{totalItems}
+                <motion.button
+                  whileTap={{ scale: 0.94 }}
+                  onClick={() =>
+                    setSearchOpen(true)
+                  }
+                  className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[#F6DFD0] bg-white text-[#5B3722] shadow-sm transition-all hover:bg-[#FFF1E7]"
+                >
 
-</div>
+                  <Search size={19} />
 
-)}
+                </motion.button>
 
-</Link>
+              )}
 
+              {/* CART */}
 
-{/* MENU */}
+              <Link
+                href="/cart"
+                className="relative"
+              >
 
-<button
-onClick={()=>setOpen(!open)}
-className="w-11 h-11 rounded-2xl bg-orange-500 text-white flex items-center justify-center shadow-lg shadow-orange-200"
->
+                <motion.div
+                  whileTap={{ scale: 0.94 }}
+                  className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[#F6DFD0] bg-white text-[#5B3722] shadow-sm transition-all hover:bg-[#FFF1E7]"
+                >
 
-{open
-? <X size={21}/>
-: <Menu size={21}/>
-}
+                  <ShoppingCart size={19} />
 
-</button>
+                </motion.div>
 
-</div>
+                {totalItems > 0 && (
 
-</div>
+                  <motion.div
+                    initial={{
+                      scale: 0,
+                    }}
+                    animate={{
+                      scale: 1,
+                    }}
+                    className="absolute -right-1 -top-1 flex h-5 min-w-[20px] items-center justify-center rounded-full bg-[#FF8A3D] px-1.5 text-[10px] font-bold text-white shadow-lg"
+                  >
 
-</div>
+                    {totalItems}
 
+                  </motion.div>
 
-{/* MOBILE MENU */}
+                )}
 
-<AnimatePresence>
+              </Link>
 
-{open &&(
+              {/* MENU */}
 
-<>
+              <motion.button
+                whileTap={{ scale: 0.94 }}
+                onClick={() =>
+                  setOpen(!open)
+                }
+                className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#FF8A3D] text-white shadow-[0_10px_30px_rgba(255,138,61,0.35)] transition-all hover:scale-[1.02]"
+              >
 
-<motion.div
-initial={{opacity:0}}
-animate={{opacity:1}}
-exit={{opacity:0}}
-className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"
-onClick={()=>setOpen(false)}
-/>
+                {open
+                  ? <X size={21} />
+                  : <Menu size={21} />
+                }
 
-<motion.div
-initial={{x:"100%"}}
-animate={{x:0}}
-exit={{x:"100%"}}
-transition={{
-type:"spring",
-damping:24,
-stiffness:240
-}}
-className="fixed top-0 right-0 h-screen w-[86%] max-w-sm bg-[#fffaf5] z-50 shadow-[0_0_40px_rgba(0,0,0,0.12)] border-l border-orange-100 flex flex-col overflow-hidden" >
+              </motion.button>
 
-{/* TOP */}
+            </div>
 
-<div className="p-5 border-b border-orange-100 bg-[#fffaf5]">
+          </div>
 
-<div className="flex items-start justify-between gap-4">
+        </div>
 
-<div className="flex items-center gap-3 min-w-0">
+        {/* THIN GLOW */}
 
-<div className="relative w-14 h-14 rounded-2xl overflow-hidden border border-orange-100 bg-white shadow-sm">
+        <div className="absolute bottom-0 left-0 h-px w-full bg-gradient-to-r from-transparent via-[#FFD6BA] to-transparent" />
 
-<Image
-src="/logo.jpg"
-width={100}
-height={100}
-alt="Batish Gifts"
-className="object-contain w-full h-full p-1.5"
-/>
+      </nav>
 
-</div>
+      {/* MOBILE MENU */}
 
-<div className="min-w-0">
+      <AnimatePresence>
 
-<h2 className="text-lg font-bold text-slate-900 truncate">
+        {open && (
 
-BATISH GIFTS
+          <>
 
-</h2>
+            {/* OVERLAY */}
 
-<p className="text-xs text-slate-500">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[110] bg-black/35 backdrop-blur-sm"
+              onClick={() =>
+                setOpen(false)
+              }
+            />
 
-Premium shopping experience
+            {/* SIDEBAR */}
 
-</p>
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{
+                type: "spring",
+                damping: 24,
+                stiffness: 260,
+              }}
+              className="fixed right-0 top-0 z-[120] flex h-screen w-[86%] max-w-sm flex-col overflow-hidden border-l border-[#F6DFD0] bg-[#FFF8F2] shadow-[0_0_50px_rgba(0,0,0,0.12)]"
+            >
 
-</div>
+              {/* TOP */}
 
-</div>
+              <div className="border-b border-[#F6DFD0] bg-[#FFF8F2] p-5">
 
-<button
-onClick={()=>setOpen(false)}
-className="w-10 h-10 rounded-xl bg-white border border-orange-100 flex items-center justify-center text-slate-700"
->
+                <div className="flex items-start justify-between gap-4">
 
-<X size={20}/>
+                  <div className="flex min-w-0 items-center gap-3">
 
-</button>
+                    <div className="relative h-14 w-14 overflow-hidden rounded-2xl border border-[#F6DFD0] bg-white shadow-sm">
 
-</div>
+                      <Image
+                        src="/logo.jpg"
+                        width={100}
+                        height={100}
+                        alt="Veloura Bakery"
+                        className="h-full w-full object-contain p-1.5"
+                      />
 
-</div>
+                    </div>
 
+                    <div className="min-w-0">
 
-{/* LINKS */}
+                      <h2 className="truncate text-lg font-black text-[#2B170B]">
 
-<div className="flex-1 overflow-y-auto px-5 py-6 space-y-4">
+                        VELOURA BAKERY
 
+                      </h2>
 
-<Link
-href="/category/all"
-onClick={()=>setOpen(false)}
-className="flex items-center justify-between rounded-2xl border border-orange-100 bg-orange-50/50 px-4 py-4 hover:bg-orange-50 transition-all"
->
+                      <p className="text-xs text-[#8B5E3C]">
 
-<div className="flex items-center gap-3">
+                        Premium bakery & cake studio
 
-<div className="w-11 h-11 rounded-2xl bg-white flex items-center justify-center shadow-sm border border-orange-100">
+                      </p>
 
-<ClipboardList
-size={20}
-className="text-orange-500"
-/>
+                    </div>
 
-</div>
+                  </div>
 
-<div>
+                  <button
+                    onClick={() =>
+                      setOpen(false)
+                    }
+                    className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#F6DFD0] bg-white text-[#5B3722]"
+                  >
 
-<p className="font-semibold text-slate-900">
+                    <X size={20} />
 
-Explore Products
+                  </button>
 
-</p>
+                </div>
 
-<p className="text-xs text-slate-500">
+              </div>
 
-Browse all shopping items
+              {/* LINKS */}
 
-</p>
+              <div className="flex-1 space-y-4 overflow-y-auto px-5 py-6">
 
-</div>
+                {/* MENU */}
 
-</div>
+                <Link
+                  href="/category/all"
+                  onClick={() =>
+                    setOpen(false)
+                  }
+                  className="flex items-center justify-between rounded-3xl border border-[#F6DFD0] bg-[#FFF1E7] px-4 py-4 transition-all"
+                >
 
-<ChevronRight
-size={18}
-className="text-slate-400"
-/>
+                  <div className="flex items-center gap-3">
 
-</Link>
+                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[#F6DFD0] bg-white shadow-sm">
 
+                      <ClipboardList
+                        size={20}
+                        className="text-[#FF8A3D]"
+                      />
 
-<Link
-href="/cart"
-onClick={()=>setOpen(false)}
-className="flex items-center justify-between rounded-2xl border border-orange-100 bg-white px-4 py-4 hover:bg-orange-50 transition-all"
->
+                    </div>
 
-<div className="flex items-center gap-3">
+                    <div>
 
-<div className="w-11 h-11 rounded-2xl bg-orange-50 flex items-center justify-center border border-orange-100">
+                      <p className="font-semibold text-[#2B170B]">
 
-<ShoppingCart
-size={20}
-className="text-orange-500"
-/>
+                        Explore Menu
 
-</div>
+                      </p>
 
-<div>
+                      <p className="text-xs text-[#8B5E3C]">
 
-<p className="font-semibold text-slate-900">
+                        Fresh cakes & desserts
 
-Your Cart
+                      </p>
 
-</p>
+                    </div>
 
-<p className="text-xs text-slate-500">
+                  </div>
 
-{totalItems} items added
+                  <ChevronRight
+                    size={18}
+                    className="text-[#8B5E3C]"
+                  />
 
-</p>
+                </Link>
 
-</div>
+                {/* CART */}
 
-</div>
+                <Link
+                  href="/cart"
+                  onClick={() =>
+                    setOpen(false)
+                  }
+                  className="flex items-center justify-between rounded-3xl border border-[#F6DFD0] bg-white px-4 py-4"
+                >
 
-<div className="min-w-[24px] h-6 px-2 rounded-full bg-orange-500 text-white text-xs font-bold flex items-center justify-center">
+                  <div className="flex items-center gap-3">
 
-{totalItems}
+                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[#F6DFD0] bg-[#FFF1E7]">
 
-</div>
+                      <ShoppingCart
+                        size={20}
+                        className="text-[#FF8A3D]"
+                      />
 
-</Link>
+                    </div>
 
+                    <div>
 
-<Link
-href="/custom-order"
-onClick={()=>setOpen(false)}
-className="flex items-center justify-between rounded-2xl border border-orange-100 bg-white px-4 py-4 hover:bg-orange-50 transition-all"
->
+                      <p className="font-semibold text-[#2B170B]">
 
-<div className="flex items-center gap-3">
+                        Your Cart
 
-<div className="w-11 h-11 rounded-2xl bg-orange-50 flex items-center justify-center border border-orange-100">
+                      </p>
 
-<Gift
-size={20}
-className="text-orange-500"
-/>
+                      <p className="text-xs text-[#8B5E3C]">
 
-</div>
+                        {totalItems} items added
 
-<div>
+                      </p>
 
-<p className="font-semibold text-slate-900">
+                    </div>
 
-Custom Order
+                  </div>
 
-</p>
+                  <div className="flex h-6 min-w-[24px] items-center justify-center rounded-full bg-[#FF8A3D] px-2 text-xs font-bold text-white">
 
-<p className="text-xs text-slate-500">
+                    {totalItems}
 
-Personalized gifting requests
+                  </div>
 
-</p>
+                </Link>
 
-</div>
+                {/* CUSTOM */}
 
-</div>
+                <Link
+                  href="/custom-order"
+                  onClick={() =>
+                    setOpen(false)
+                  }
+                  className="flex items-center justify-between rounded-3xl border border-[#F6DFD0] bg-white px-4 py-4"
+                >
 
-<ChevronRight
-size={18}
-className="text-slate-400"
-/>
+                  <div className="flex items-center gap-3">
 
-</Link>
+                    <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[#F6DFD0] bg-[#FFF1E7]">
 
-</div>
+                      <Gift
+                        size={20}
+                        className="text-[#FF8A3D]"
+                      />
 
+                    </div>
 
-{/* BOTTOM */}
+                    <div>
 
-<div className="mt-auto p-5 border-t border-orange-100 bg-[#fffaf5] space-y-4">
+                      <p className="font-semibold text-[#2B170B]">
 
-<div className="rounded-3xl bg-orange-500 p-5 text-white shadow-xl shadow-orange-200">
+                        Custom Cakes
 
-<div className="flex items-center gap-2 mb-2">
+                      </p>
 
-<Sparkles size={18}/>
+                      <p className="text-xs text-[#8B5E3C]">
 
-<p className="font-semibold">
+                        Birthday & celebration cakes
 
-Shop Better Gifts
+                      </p>
 
-</p>
+                    </div>
 
-</div>
+                  </div>
 
-<p className="text-sm text-orange-50 leading-relaxed">
+                  <ChevronRight
+                    size={18}
+                    className="text-[#8B5E3C]"
+                  />
 
-Discover unique gifts, toys and lifestyle products curated for every occasion.
+                </Link>
 
-</p>
+              </div>
 
-</div>
+              {/* BOTTOM */}
 
-</div>
+              <div className="mt-auto border-t border-[#F6DFD0] bg-[#FFF8F2] p-5">
 
-</motion.div>
+                <div className="rounded-[30px] bg-[#FF8A3D] p-5 text-white shadow-[0_20px_50px_rgba(255,138,61,0.35)]">
 
-</>
+                  <div className="mb-2 flex items-center gap-2">
 
-)}
+                    <Sparkles size={18} />
 
-</AnimatePresence>
+                    <p className="font-semibold">
 
-</nav>
+                      Freshly Baked Daily
 
+                    </p>
 
-{/* SEARCH */}
+                  </div>
 
-<SearchOverlay
-open={searchOpen}
-onClose={()=>setSearchOpen(false)}
-/>
+                  <p className="text-sm leading-relaxed text-orange-50">
 
-</>
+                    Premium cakes, pastries and desserts handcrafted for birthdays and sweet celebrations.
 
-);
+                  </p>
+
+                </div>
+
+              </div>
+
+            </motion.div>
+
+          </>
+
+        )}
+
+      </AnimatePresence>
+
+      {/* SEARCH */}
+
+      <SearchOverlay
+        open={searchOpen}
+        onClose={() =>
+          setSearchOpen(false)
+        }
+      />
+
+    </>
+
+  );
 
 }

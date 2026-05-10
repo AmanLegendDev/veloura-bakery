@@ -24,16 +24,103 @@ export async function createProduct(data) {
       "-" +
       Date.now();
 
-    await Product.create({
-      name: data.name,
-      slug,
-      description: data.description || "",
-      sellingPrice: Number(data.sellingPrice),
-      image: data.image,
-      category: data.category,
-      isFeatured: data.isFeatured ?? false,
-      isVisible: data.isVisible ?? true,
-    });
+await Product.create({
+
+  /*
+  BASIC
+  */
+
+  name: data.name,
+
+  slug,
+
+  description:
+    data.description || "",
+
+
+  /*
+  PRICING
+  */
+
+  sellingPrice:
+    Number(data.sellingPrice),
+
+
+  /*
+  IMAGES
+  */
+
+  image:
+    data.image,
+
+  gallery:
+    data.gallery || [],
+
+
+  /*
+  CATEGORY
+  */
+
+  category:
+    data.category,
+
+
+  /*
+  VISIBILITY
+  */
+
+  isFeatured:
+    data.isFeatured ?? false,
+
+  isVisible:
+    data.isVisible ?? true,
+
+
+  /*
+  COMMERCE
+  */
+
+  badgeText:
+    data.badgeText || "",
+
+  offerText:
+    data.offerText || "",
+
+  stockStatus:
+    data.stockStatus || "in_stock",
+
+  deliveryInfo:
+    data.deliveryInfo || "",
+
+
+  /*
+  OPTIONS
+  */
+
+  sizes:
+    data.sizes || [],
+
+  weights:
+    data.weights || [],
+
+  cakeMessage:
+    data.cakeMessage ?? true,
+
+  cakeType:
+    data.cakeType || "eggless",
+
+  preparationTime:
+    data.preparationTime || "",
+
+
+  /*
+  HIGHLIGHTS
+  */
+
+  shortHighlights:
+    data.shortHighlights || [],
+
+});
 
     return { success: true };
   } catch (err) {
@@ -120,26 +207,121 @@ export async function getSingleProduct(id) {
 UPDATE PRODUCT
 */
 
-export async function updateProduct(id, data) {
+export async function updateProduct(
+  id,
+  data
+) {
+
   await connectDB();
 
   await Product.findByIdAndUpdate(
     id,
     {
-      name: data.name,
-      description: data.description,
-      sellingPrice: Number(data.sellingPrice),
-      image: data.image,
-      category: data.category,
-      isFeatured: data.isFeatured,
-      isVisible: data.isVisible,
+
+      /*
+      BASIC
+      */
+
+      name:
+        data.name,
+
+      description:
+        data.description,
+
+
+      /*
+      PRICING
+      */
+
+      sellingPrice:
+        Number(data.sellingPrice),
+
+
+      /*
+      IMAGES
+      */
+
+      image:
+        data.image,
+
+      gallery:
+        data.gallery || [],
+
+
+      /*
+      CATEGORY
+      */
+
+      category:
+        data.category,
+
+
+      /*
+      VISIBILITY
+      */
+
+      isFeatured:
+        data.isFeatured,
+
+      isVisible:
+        data.isVisible,
+
+
+      /*
+      COMMERCE
+      */
+
+      badgeText:
+        data.badgeText || "",
+
+      offerText:
+        data.offerText || "",
+
+      stockStatus:
+        data.stockStatus || "in_stock",
+
+      deliveryInfo:
+        data.deliveryInfo || "",
+
+
+      /*
+      OPTIONS
+      */
+
+      sizes:
+        data.sizes || [],
+
+      weights:
+        data.weights || [],
+
+      cakeMessage:
+        data.cakeMessage ?? true,
+
+      cakeType:
+        data.cakeType || "eggless",
+
+      preparationTime:
+        data.preparationTime || "",
+
+
+      /*
+      HIGHLIGHTS
+      */
+
+      shortHighlights:
+        data.shortHighlights || [],
+
     },
+
     { new: true }
+
   );
 
-  return { success: true };
-}
+  return {
+    success: true
+  };
 
+}
 /*
 FEATURED PRODUCTS (HOME)
 */
