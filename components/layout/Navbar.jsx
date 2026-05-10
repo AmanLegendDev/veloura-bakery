@@ -86,7 +86,7 @@ className="object-contain w-full h-full p-1.5"
 
 <h2 className="text-sm font-bold tracking-wide text-slate-900 truncate">
 
-BATISH GIFTS
+VELOURA BAKERY
 
 </h2>
 
