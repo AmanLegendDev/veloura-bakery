@@ -73,6 +73,85 @@ export default function CategorySlider({
 
           <div className="flex min-w-max gap-4 md:grid md:min-w-0 md:grid-cols-3 lg:grid-cols-6">
 
+                  <motion.div
+                
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                
+                className="w-[170px] shrink-0 md:w-auto"
+              >
+
+
+                <Link
+                  href="/category/all"
+                  className="group relative block overflow-hidden rounded-[30px] bg-[#fdf6f0] shadow-[0_10px_30px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.10)]"
+                >
+
+
+                  {/* IMAGE */}
+
+                  <div className="relative aspect-[4/5] overflow-hidden">
+
+
+                    <Image
+                      src="/category/all.jpg"
+                      alt="all Category"
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+
+
+                    {/* CINEMATIC OVERLAY */}
+
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent"/>
+
+
+                    {/* TOP MINI BADGE */}
+
+                    <div className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 backdrop-blur-md">
+
+                      <p className="text-[10px] font-semibold uppercase tracking-wide text-[#FF8A3D]">
+
+                        Fresh
+
+                      </p>
+
+                    </div>
+
+
+                    {/* CONTENT */}
+
+                    <div className="absolute inset-x-0 bottom-0 p-4 text-white">
+
+
+                      <h3 className="text-base font-bold leading-tight drop-shadow-lg md:text-lg">
+
+                        ALl
+
+                      </h3>
+
+
+                      <p className="mt-1 text-xs font-medium text-white/85">
+
+                        
+
+                      </p>
+
+                    </div>
+
+                  </div>
+
+
+                  {/* HOVER BORDER */}
+
+                  <div className="absolute inset-0 rounded-[30px] border border-transparent transition-all duration-300 group-hover:border-white/30"/>
+
+                </Link>
+
+              </motion.div>
+
+
 
             {categories.map((category, index) => (
 
