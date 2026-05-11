@@ -22,18 +22,36 @@ export default function CategoryPage() {
 
   const paramsData = useParams();
 
-  const initialCategory =
-    paramsData?.id || "all";
+const initialCategory = "all";
 
   const params = useSearchParams();
+
+  const queryCategory =
+  params.get("cat");
 
   const productId =
     params.get("product");
 
-  const [
-    activeCategory,
-    setActiveCategory,
-  ] = useState(initialCategory);
+const [
+  activeCategory,
+  setActiveCategory,
+] = useState(
+  queryCategory || "all"
+);
+
+
+
+useEffect(() => {
+
+  if (queryCategory) {
+
+    setActiveCategory(
+      queryCategory
+    );
+
+  }
+
+}, [queryCategory]);
 
 
   /*
