@@ -87,7 +87,7 @@ export default function CategorySlider({
 
 
                 <Link
-                  href={`/category/${category._id}`}
+                  href="/category/all"
                   className="group relative block overflow-hidden rounded-[30px] bg-[#fdf6f0] shadow-[0_10px_30px_rgba(0,0,0,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.10)]"
                 >
 
