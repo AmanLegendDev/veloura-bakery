@@ -145,7 +145,7 @@ export default function ProductCard({
 
         <div
           ref={imgRef}
-          className="relative aspect-[4/4.1] overflow-hidden bg-[#f8f1ea]"
+          className="relative aspect-square overflow-hidden bg-[#f8f1ea]"
         >
 
           <Image
@@ -211,7 +211,7 @@ export default function ProductCard({
 
       {/* CONTENT */}
 
-      <div className="space-y-3 p-4">
+      <div className="space-y-2.5 p-3.5">
 
         {/* TITLE */}
 
@@ -229,7 +229,7 @@ export default function ProductCard({
 
         {/* DESCRIPTION */}
 
-        <p className="line-clamp-2 min-h-[38px] text-[13px] leading-relaxed text-[#8B5E3C]">
+        <p className="line-clamp-2 text-[12px] leading-relaxed text-[#8B5E3C]">
 
           {product.description ||
             "Freshly baked premium dessert crafted with rich flavors and premium ingredients."}
@@ -238,60 +238,55 @@ export default function ProductCard({
 
         {/* PRICE */}
 
-        <div className="flex items-center gap-2">
-
-          <p className="text-[24px] font-black leading-none tracking-tight text-[#2B170B]">
-
-            ₹{product.sellingPrice}
-
-          </p>
-
-        </div>
+     
 
         {/* QUICK INFO */}
 
-        <div className="flex flex-wrap gap-2">
+        {/* PRICE + TYPE */}
 
-          {/* EGG */}
+<div className="flex items-center justify-between">
 
-          <div className="inline-flex items-center gap-1.5 rounded-full bg-[#FFF4EC] px-3 py-1.5">
+  <div className="flex items-center gap-2">
 
-            {product.cakeType ===
-            "eggless" ? (
+    <p className="text-[24px] font-black leading-none tracking-tight text-[#2B170B]">
 
-              <Leaf
-                size={11}
-                className="text-green-600"
-              />
+      ₹{product.sellingPrice}
 
-            ) : (
+    </p>
 
-              <Egg
-                size={11}
-                className="text-orange-500"
-              />
+    <div className="flex items-center gap-1 rounded-full bg-[#FFF4EC] px-2 py-1">
 
-            )}
+      {product.cakeType ===
+      "eggless" ? (
 
-            <p className="text-[11px] font-semibold text-[#6B4423]">
+        <Leaf
+          size={10}
+          className="text-green-600"
+        />
 
-              {product.cakeType ===
-              "eggless"
-                ? "Eggless"
-                : "With Egg"}
+      ) : (
 
-            </p>
+        <Egg
+          size={10}
+          className="text-orange-500"
+        />
 
-          </div>
+      )}
 
-          {/* TIME */}
+      <span className="text-[10px] font-bold text-[#6B4423]">
 
-      
+        {product.cakeType ===
+        "eggless"
+          ? "Eggless"
+          : "Egg"}
 
-          
+      </span>
 
-        </div>
+    </div>
 
+  </div>
+
+</div>
         {/* BUTTON AREA */}
 
         <div className="pt-1">
