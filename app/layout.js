@@ -1,8 +1,6 @@
-import Navbar from "@/components/layout/Navbar";
 import "./globals.css";
 
 import { Inter, Poppins } from "next/font/google";
-import Footer from "@/components/layout/Footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -11,31 +9,31 @@ const inter = Inter({
 
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["400","600"],
+  weight: ["400", "600"],
   variable: "--font-poppins",
 });
 
 export const metadata = {
 
   title: {
-    default: "Aarav Gift Gallery | Gift Shop in Shimla",
-    template: "%s | Aarav Gift Gallery"
+    default: "Veloura Bakery | Premium Cakes & Desserts",
+    template: "%s | Veloura Bakery"
   },
 
   description:
-"Best gift shop in Shimla for birthday gifts, custom gifts, hampers, perfumes, handmade gifts, toys and surprise boxes. Aarav Gift Gallery Panthaghati.",
+    "Veloura Bakery offers premium cakes, pastries, brownies, dessert jars and custom celebration cakes freshly baked in Shimla.",
 
   keywords: [
-    "gift shop shimla",
-    "aarav gift gallery",
-    "custom gifts",
-    "birthday gifts",
-    "surprise box",
-    "gift hampers",
-    "toys",
-    "perfumes",
-    "romantic gifts",
-    "gift store panthaghati"
+    "bakery shimla",
+    "veloura bakery",
+    "cakes in shimla",
+    "birthday cakes",
+    "custom cakes",
+    "pastries",
+    "dessert jars",
+    "brownies",
+    "eggless cakes",
+    "premium bakery"
   ],
 
   authors: [
@@ -47,38 +45,35 @@ export const metadata = {
   creator: "Aman Digital Solution",
 
   verification: {
-  google: "5gYda82MANvDdRu9ccuD9s8H1RuZDs290h4BZdgWq0A"
-},
+    google: "5gYda82MANvDdRu9ccuD9s8H1RuZDs290h4BZdgWq0A"
+  },
 
-
- metadataBase: new URL(
-  "https://www.aaravgiftgallery.com"
-),
+  metadataBase: new URL(
+    "https://www.velourabakery.com"
+  ),
 
   robots: {
-  index: true,
-  follow: true
-},
-
-
+    index: true,
+    follow: true
+  },
 
   openGraph: {
 
-    title: "Aarav Gift Gallery",
+    title: "Veloura Bakery",
 
     description:
-      "Unique gifts, hampers & surprise boxes crafted for special moments 💝",
+      "Fresh cakes, pastries & handcrafted desserts baked daily ✨",
 
-    url: "https://www.aaravgiftgallery.com",
+    url: "https://www.velourabakery.com",
 
-    siteName: "Aarav Gift Gallery",
+    siteName: "Veloura Bakery",
 
     images: [
       {
         url: "/og.jpg",
         width: 1200,
         height: 630,
-        alt: "Aarav Gift Gallery"
+        alt: "Veloura Bakery"
       }
     ],
 
@@ -88,64 +83,68 @@ export const metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Aarav Gift Gallery",
+
+    title: "Veloura Bakery",
+
     description:
-      "Premium gifting experience in Shimla 🎁",
+      "Premium cakes & desserts baked fresh daily 🎂",
+
     images: ["/og.jpg"]
   },
 
-
-
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({
+  children
+}) {
 
   const localBusinessSchema = {
-  "@context": "https://schema.org",
 
-  "@type": "GiftShop",
+    "@context": "https://schema.org",
 
-  name: "Aarav Gift Gallery",
+    "@type": "Bakery",
 
-  image:
-    "https://www.aaravgiftgallery.com/og.jpg",
+    name: "Veloura Bakery",
 
-  url:
-    "https://www.aaravgiftgallery.com",
+    image:
+      "https://www.velourabakery.com/og.jpg",
 
-  telephone:
-    "+91 9459365278",
+    url:
+      "https://www.velourabakery.com",
 
-  address: {
+    telephone:
+      "+91 9459365278",
 
-    "@type": "PostalAddress",
+    address: {
 
-    addressLocality: "Shimla",
+      "@type": "PostalAddress",
 
-    addressRegion: "Himachal Pradesh",
+      addressLocality: "Shimla",
 
-    postalCode: "171009",
+      addressRegion: "Himachal Pradesh",
 
-    addressCountry: "IN"
+      postalCode: "171009",
 
-  },
+      addressCountry: "IN"
 
-  areaServed: [
-    "Shimla",
-    "Panthaghati",
-    "Sanjauli",
-    "Dhalli"
-  ],
+    },
 
-  priceRange: "₹₹",
+    areaServed: [
+      "Shimla",
+      "Panthaghati",
+      "Sanjauli",
+      "Dhalli"
+    ],
 
-  description:
-    "Gift shop in Shimla offering birthday gifts, custom gifts, hampers, perfumes, toys, handmade gifts and surprise boxes.",
+    priceRange: "₹₹",
 
-  sameAs: [
-    
-  ]
-};
+    description:
+      "Premium bakery in Shimla offering fresh cakes, pastries, brownies, dessert jars and celebration cakes.",
+
+    sameAs: [
+
+    ]
+  };
 
   return (
 
@@ -156,15 +155,13 @@ export default function RootLayout({ children }) {
       >
 
         <script
-  type="application/ld+json"
-  dangerouslySetInnerHTML={{
-    __html: JSON.stringify(localBusinessSchema)
-  }}
-/>
-        
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(localBusinessSchema)
+          }}
+        />
 
         {children}
-        
 
       </body>
 
