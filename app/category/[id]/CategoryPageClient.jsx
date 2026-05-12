@@ -103,7 +103,7 @@ useEffect(() => {
 
   return (
 
-    <section className="min-h-screen overflow-x-hidden bg-[#FFF8F2] pt-[74px]">
+    <section className="min-h-screen bg-[#FFF8F2] pt-[74px]">
 
 
       {/* NAVBAR */}
@@ -113,7 +113,7 @@ useEffect(() => {
 
       {/* HERO BANNER */}
 
-      <section className="relative overflow-hidden">
+      <section className="relative">
 
 
         {/* BACKGROUND IMAGE */}

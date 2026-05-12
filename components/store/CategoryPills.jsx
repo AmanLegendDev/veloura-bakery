@@ -80,7 +80,7 @@ requestAnimationFrame(() => {
 
   return(
 
-<div className="sticky top-[74px] z-[60] border-b border-[#F5DED0] bg-[#FFF8F2]/95 px-4 py-3 backdrop-blur-xl">
+<div className="fixed top-[74px] left-0 right-0 z-[60] border-b border-[#F5DED0] bg-[#FFF8F2]/95 px-4 py-3 backdrop-blur-xl">
       <div
   ref={scrollRef}
   className="flex gap-3 overflow-x-auto no-scrollbar"
