@@ -339,12 +339,26 @@ export async function getFeaturedProducts() {
     .limit(6)
     .lean();
 
-  return products.map(p => ({
-    _id: p._id.toString(),
-    name: p.name,
-    sellingPrice: p.sellingPrice,
-    image: p.image,
-    slug: p.slug
-  }));
+return products.map((p) => ({
+
+  _id: p._id.toString(),
+
+  name: p.name,
+
+  description: p.description,
+
+  sellingPrice: p.sellingPrice,
+
+  image: p.image,
+
+  slug: p.slug,
+
+  cakeType: p.cakeType,
+
+  badgeText: p.badgeText,
+
+  offerText: p.offerText,
+
+}));
 
 }

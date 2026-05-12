@@ -19,7 +19,7 @@ export default function ProductSection({
   categoryId
 }) {
 
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState(null);
 
   const [loading, setLoading] = useState(true);
 
@@ -252,7 +252,11 @@ export default function ProductSection({
   =====================================
   */
 
-  if (!loading && products.length === 0) {
+  if (
+  !loading &&
+  Array.isArray(products) &&
+  products.length === 0
+) {
 
     return (
 
@@ -364,7 +368,7 @@ export default function ProductSection({
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6 lg:grid-cols-4">
 
 
-          {products.map((product) => (
+         {products?.map((product) => (
 
             <motion.div
               key={product._id}
